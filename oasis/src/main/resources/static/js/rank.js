@@ -3,15 +3,15 @@ showRegionRank()
 showByCountry()
 
 function showRank () {
-  $.get( "https://geekhub.fun/Portrait/Author/showByHeat", function( data ) {
+  $.get( "/Portrait/Author/showByHeat", function( data ) {
     const list = data.content
     for ( let i = 0; i < list.length && i < 15; i++ ) {
       const temp = document.createElement( "tr" )
       let row = $( temp )
-      var rank = $( '<td>' + ("0" + (i + 1)).slice(-2) + '</td>' )
+      var rank = $( '<td>' + ("0" + (i + 1)).slice( -2 ) + '</td>' )
       var name = $( '<td><a href="#" id=\"' + list[ i ].author_id + '\">' + list[ i ].author_name + "</a></td>" )
       var affiliation = $( '<td class="uk-text-truncate">' + list[ i ].affiliation + "</td>" )
-      var count = $( '<td>' + ("0" + list[ i ].publication_count).slice(-2) + "</td>" )
+      var count = $( '<td>' + ("0" + list[ i ].publication_count).slice( -2 ) + "</td>" )
       var heat = $( '<td>' + list[ i ].heat + '</td>' )
       row.append( rank ).append( name ).append( affiliation ).append( count ).append( heat )
       $( "tbody.author" ).append( row )
@@ -20,11 +20,11 @@ function showRank () {
 }
 
 function showRegionRank () {
-  $.get( "https://geekhub.fun/Portrait/Affiliation/showByCountry", function( data ) {
-    const list = data.content.split(";")
+  $.get( "/Portrait/Affiliation/showByCountry", function( data ) {
+    const list = data.content.split( ";" )
     for ( var i = 1; i <= 15 && i < list.length; i++ ) {
       var pair = list[ i ].split( "," )
-      var rank = $( '<td>' + ("0" + i).slice(-2) + '</td>' )
+      var rank = $( '<td>' + ("0" + i).slice( -2 ) + '</td>' )
       var region = $( '<td>' + pair[ 0 ] + "</td>" )
       var heat = $( '<td>' + pair[ 1 ] + "</td>" )
       var temp = document.createElement( "tr" )
@@ -36,7 +36,7 @@ function showRegionRank () {
 }
 
 function showByCountry () {
-  $.get( "https://geekhub.fun/Portrait/Affiliation/showByCountry", function( data ) {
+  $.get( "/Portrait/Affiliation/showByCountry", function( data ) {
     const tmp = data.content.slice( 1, -2 ).split( ";" )
     let areaData = []
     tmp.forEach( function( value ) {
