@@ -9,20 +9,20 @@ $( () => {
   } )
 } )
 click_scroll = () => {
-  const scroll_offset = $( "#search" ).offset()
-  $( "body,html" ).animate( {
+  const scroll_offset = $( '#search' ).offset()
+  $( 'body,html' ).animate( {
     scrollTop:scroll_offset.top
   }, 500 )
 }
 advance = () => {
-  $( "#normal-search" ).toggle()
-  $( "#advanced-search" ).toggle()
+  $( '#normal-search' ).toggle()
+  $( '#advanced-search' ).toggle()
 }
 visual_search = () => {
   const choice = $( '#option select' ).val()
-  const content = $('.uk-input').val()
-  if(choice==='Keywords' && content !== "")
-    window.location.href = "/fieldList?field="+content;
+  const content = $( '.uk-input' ).val()
+  if ( choice === 'Keywords' && content.trim() !== '' )
+    window.location.href = '/fieldList?field=' + content
   else
     warning( 'Visual Search...' )
 }
