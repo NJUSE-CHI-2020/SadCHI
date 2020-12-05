@@ -18,3 +18,19 @@ advance = () => {
   $( "#normal-search" ).toggle()
   $( "#advanced-search" ).toggle()
 }
+visual_search = () => {
+  warning( 'Visual Search...' )
+}
+paper_search = () => {
+  warning( 'Paper Search...' )
+}
+advanced_search = () => {
+  warning( 'Advanced Search...' )
+}
+warning = ( message ) => {
+  UIkit.notification( {
+    message:'<span uk-icon="icon:warning"></span> ' + message,
+    pos:'bottom-right',
+    status:'warning'
+  } )
+}
