@@ -25,10 +25,6 @@ $(document).ready(function () {
         }
 
         let option = {
-            title: {
-                text: "Activation of Affiliation",
-                textAlign: "auto"
-            },
             series: [{
                 type: 'graph',
                 layout: 'force',
