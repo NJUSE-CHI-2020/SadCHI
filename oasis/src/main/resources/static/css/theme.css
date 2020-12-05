@@ -2549,15 +2549,14 @@ small {
 .ev-hero-form .nc-select {
     border-radius: 50px 0 0 50px;
     font-size: 16px !important;
-    /*border-right: none;*/
     /*border: none;*/
-    padding: 0 60px !important;
-    text-align: left !important;
+    /*padding: 0 60px !important;*/
+    text-align: center !important;
     color: #999;
 }
 
 .ev-hero-form .nc-select:after {
-    right: 28px;
+    right: 20px;
 }
 
 .ev-hero-form-mobile .uk-button {

@@ -31,6 +31,6 @@ warning = ( message ) => {
   UIkit.notification( {
     message:'<span uk-icon="icon:warning"></span> ' + message,
     pos:'bottom-right',
-    status:'warning'
+    status:'danger'
   } )
 }
