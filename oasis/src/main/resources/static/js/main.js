@@ -6,3 +6,14 @@ $( window ).on( 'load', () => {
 $( document ).ready( () => {
   $( '.nc-select' ).niceSelect()
 } )
+/* Scroll Ball */
+window.onscroll = (() => {
+  scrollFunction()
+})
+scrollFunction = () => {
+  if ( document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ) {
+    $( '#to-top' ).show()
+  } else {
+    $( '#to-top' ).hide()
+  }
+}
