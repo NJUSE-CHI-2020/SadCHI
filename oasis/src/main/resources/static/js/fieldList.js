@@ -85,13 +85,27 @@ $(document).ready(function () {
     });
 
     $("#goTo").click(function () {
-        var target = $("#goToPage").val();
+        let target = $("#goToPage").val();
         if (target == undefined)
             target = currentPage;
         target = Math.max(1, Math.min(totalPage, target));
         currentPage = target;
         showFieldList(dataList.slice((currentPage-1)*10,currentPage*10));
         $("#goToPage").val("");
+    });
+
+
+    $('#goToPage').bind('keypress',function(event){
+        if(event.keyCode == "13")
+        {
+            let target = $("#goToPage").val();
+            if (target == undefined)
+                target = currentPage;
+            target = Math.max(1, Math.min(totalPage, target));
+            currentPage = target;
+            showFieldList(dataList.slice((currentPage-1)*10,currentPage*10));
+            $("#goToPage").val("");
+        }
     });
 
 });
