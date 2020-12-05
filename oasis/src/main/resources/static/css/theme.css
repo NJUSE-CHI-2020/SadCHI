@@ -42,10 +42,11 @@ small {
     outline: none;
     background-color: var(--secondary-color);
     color: white;
+    opacity: 85%;
     border-radius: 50%;
     padding: 12px;
-    justify-content:center;
-    align-items:center;
+    justify-content: center;
+    align-items: center;
 }
 
 .scroll-ball:hover {
