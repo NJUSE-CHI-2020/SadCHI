@@ -12,7 +12,7 @@ window.onscroll = (() => {
 })
 scrollFunction = () => {
   if ( document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ) {
-    $( '#to-top' ).show()
+    $( '#to-top' ).css( 'display', 'flex' )
   } else {
     $( '#to-top' ).hide()
   }
