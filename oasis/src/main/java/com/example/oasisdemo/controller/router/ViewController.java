@@ -20,4 +20,14 @@ public class ViewController {
         return "rank";
     }
 
+    @RequestMapping(value = "/fieldList")
+    public String getFieldList() {
+        return "fieldList";
+    }
+
+    @RequestMapping(value = "/fieldDetail")
+    public String getFieldDetail() {
+        return "fieldDetail";
+    }
+
 }
