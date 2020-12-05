@@ -1,13 +1,8 @@
 /* PageLoader */
-
-'use strict';
-$(window).on('load', function () {
-    $('#preloader').fadeOut('slow');
-});
-
+$( window ).on( 'load', () => {
+  $( '#preloader' ).fadeOut( 'slow' )
+} )
 /* Nice Select */
-
-'use strict';
-$(document).ready(function () {
-    $('.nc-select').niceSelect();
-});
+$( document ).ready( () => {
+  $( '.nc-select' ).niceSelect()
+} )

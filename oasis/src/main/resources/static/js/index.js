@@ -1,22 +1,20 @@
 $( () => {
   $( '#option select' ).change( () => {
     const choice = $( '#option select' ).val()
-    if (choice === 'Year' || choice === 'Title') {
+    if ( choice === 'Year' || choice === 'Title' ) {
       $( "#visual-search" ).hide()
     } else {
       $( "#visual-search" ).show()
     }
   } )
 } )
-
-function click_scroll () {
+click_scroll = () => {
   const scroll_offset = $( "#search" ).offset()
   $( "body,html" ).animate( {
     scrollTop:scroll_offset.top
   }, 500 )
 }
-
-function advance () {
+advance = () => {
   $( "#normal-search" ).toggle()
   $( "#advanced-search" ).toggle()
   console.log( $( ".selected" ) )
