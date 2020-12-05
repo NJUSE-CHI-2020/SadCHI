@@ -1,51 +1,50 @@
-showRank()
-showRegionRank()
-showByCountry()
-
-function showRank () {
-  $.get( "/Portrait/Author/showByHeat", function( data ) {
+$( () => {
+  showRank()
+  showRegionRank()
+  showByCountry()
+} )
+showRank = () => {
+  $.get( '/Portrait/Author/showByHeat', ( data ) => {
     const list = data.content
     for ( let i = 0; i < list.length && i < 15; i++ ) {
-      const temp = document.createElement( "tr" )
+      const temp = document.createElement( 'tr' )
       let row = $( temp )
-      var rank = $( '<td>' + ("0" + (i + 1)).slice( -2 ) + '</td>' )
-      var name = $( '<td><a href="#" id=\"' + list[ i ].author_id + '\">' + list[ i ].author_name + "</a></td>" )
-      var affiliation = $( '<td class="uk-text-truncate">' + list[ i ].affiliation + "</td>" )
-      var count = $( '<td>' + ("0" + list[ i ].publication_count).slice( -2 ) + "</td>" )
-      var heat = $( '<td>' + list[ i ].heat + '</td>' )
+      const rank = $( '<td>' + ('0' + (i + 1)).slice( -2 ) + '</td>' )
+      const name = $( '<td><a href="#" id=\'' + list[ i ].author_id + '\'>' + list[ i ].author_name + '</a></td>' )
+      const affiliation = $( '<td class="uk-text-truncate">' + list[ i ].affiliation + '</td>' )
+      const count = $( '<td>' + ('0' + list[ i ].publication_count).slice( -2 ) + '</td>' )
+      const heat = $( '<td>' + list[ i ].heat + '</td>' )
       row.append( rank ).append( name ).append( affiliation ).append( count ).append( heat )
-      $( "tbody.author" ).append( row )
+      $( 'tbody.author' ).append( row )
     }
   } )
 }
-
-function showRegionRank () {
-  $.get( "/Portrait/Affiliation/showByCountry", function( data ) {
-    const list = data.content.split( ";" )
-    for ( var i = 1; i <= 15 && i < list.length; i++ ) {
-      var pair = list[ i ].split( "," )
-      var rank = $( '<td>' + ("0" + i).slice( -2 ) + '</td>' )
-      var region = $( '<td>' + pair[ 0 ] + "</td>" )
-      var heat = $( '<td>' + pair[ 1 ] + "</td>" )
-      var temp = document.createElement( "tr" )
-      var row = $( temp )
+showRegionRank = () => {
+  $.get( '/Portrait/Affiliation/showByCountry', ( data ) => {
+    const list = data.content.split( ';' )
+    for ( let i = 1; i <= 15 && i < list.length; i++ ) {
+      const pair = list[ i ].split( ',' )
+      const rank = $( '<td>' + ('0' + i).slice( -2 ) + '</td>' )
+      const region = $( '<td>' + pair[ 0 ] + '</td>' )
+      const heat = $( '<td>' + pair[ 1 ] + '</td>' )
+      const temp = document.createElement( 'tr' )
+      const row = $( temp )
       row.append( rank ).append( region ).append( heat )
-      $( "tbody.region" ).append( row )
+      $( 'tbody.region' ).append( row )
     }
   } )
 }
-
-function showByCountry () {
-  $.get( "/Portrait/Affiliation/showByCountry", function( data ) {
-    const tmp = data.content.slice( 1, -2 ).split( ";" )
+showByCountry = () => {
+  $.get( '/Portrait/Affiliation/showByCountry', ( data ) => {
+    const tmp = data.content.slice( 1, -2 ).split( ';' )
     let areaData = []
     tmp.forEach( function( value ) {
-      var tmp = value.split( "," )
-      if ( tmp[ 0 ] != null && tmp[ 0 ] != "null" ) {
-        if ( tmp[ 0 ] == 'USA' ) {
+      let tmp = value.split( ',' )
+      if ( tmp[ 0 ] != null && tmp[ 0 ] !== 'null' ) {
+        if ( tmp[ 0 ] === 'USA' ) {
           tmp[ 0 ] = 'United States'
         }
-        var tmpOb = { name:tmp[ 0 ], value:parseInt( tmp[ 1 ] ) }
+        const tmpOb = { name:tmp[ 0 ], value:parseInt( tmp[ 1 ] ) }
         if ( tmpOb.value > 100 ) {
           tmpOb.itemStyle = { color:'rgb(255,0,23)' }
         } else if ( tmpOb.value > 50 ) {
@@ -60,8 +59,8 @@ function showByCountry () {
         areaData.push( tmpOb )
       }
     } )
-    var option = {
-      backgroundColor:"#FFF",
+    const option = {
+      backgroundColor:'#FFF',
       tooltip:{
         trigger:'item',
         formatter:function( params ) {

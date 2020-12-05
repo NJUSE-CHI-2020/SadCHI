@@ -17,5 +17,4 @@ click_scroll = () => {
 advance = () => {
   $( "#normal-search" ).toggle()
   $( "#advanced-search" ).toggle()
-  console.log( $( ".selected" ) )
 }
