@@ -7,6 +7,16 @@ $( () => {
       $( "#visual-search" ).show()
     }
   } )
+  $( '#normal-input' ).bind( 'keypress', ( event ) => {
+    if ( event.keyCode === 13 ) {
+      const content = $( '#normal-input' ).val()
+      if ( content.trim() === '' ) {
+        warning( 'Input field cannot be blank.' )
+      } else {
+        warning( 'Click on one of both buttons.' )
+      }
+    }
+  } )
 } )
 click_scroll = () => {
   const scroll_offset = $( '#search' ).offset()
@@ -21,21 +31,22 @@ advance = () => {
 visual_search = () => {
   const choice = $( '#option select' ).val()
   const content = $( '.uk-input' ).val()
-  if ( choice === 'Keywords' && content.trim() !== '' )
+  if ( choice === 'Keywords' && content.trim() !== '' ) {
     window.location.href = '/fieldList?field=' + content
-  else
-    warning( 'Visual Search...' )
+  } else {
+    warning( 'Input field cannot be blank.' )
+  }
 }
 paper_search = () => {
-  warning( 'Paper Search...' )
+  warning( 'Input field cannot be blank.' )
 }
 advanced_search = () => {
-  warning( 'Advanced Search...' )
+  warning( 'Input field cannot be blank.' )
 }
 warning = ( message ) => {
   UIkit.notification( {
     message:'<span uk-icon="icon:warning"></span> ' + message,
     pos:'bottom-right',
-    status:'warning'
+    status:'danger'
   } )
 }
