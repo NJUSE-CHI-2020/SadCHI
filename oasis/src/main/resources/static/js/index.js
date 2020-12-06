@@ -12,6 +12,8 @@ $( () => {
       const content = $( '#normal-input' ).val()
       if ( content.trim() === '' ) {
         warning( 'Input field cannot be blank.' )
+      } else {
+        warning( 'Click on one of both buttons.' )
       }
     }
   } )
