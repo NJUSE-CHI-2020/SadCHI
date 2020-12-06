@@ -17,9 +17,8 @@ $( () => {
   } )
 } )
 click_scroll = () => {
-  const scroll_offset = $( '#search' ).offset()
   $( 'body,html' ).animate( {
-    scrollTop:scroll_offset.top
+    scrollTop:$( '#search' ).offset().top
   }, 500 )
 }
 advance = () => {
