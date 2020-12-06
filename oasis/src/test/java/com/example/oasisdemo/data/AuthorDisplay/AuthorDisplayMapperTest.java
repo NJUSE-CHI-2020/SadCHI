@@ -1,6 +1,6 @@
 package com.example.oasisdemo.data.AuthorDisplay;
 
-import com.example.oasisdemo.OasisdemoApplication;
+import com.example.oasisdemo.OasisApplication;
 import com.example.oasisdemo.vo.AuthorPortraitVO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-@SpringBootTest(classes = OasisdemoApplication.class)
+@SpringBootTest(classes = OasisApplication.class)
 @Transactional
 class AuthorDisplayMapperTest {
     @Autowired

@@ -11,10 +11,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @SpringBootApplication
 @MapperScan(basePackages = {"com.example.oasisdemo.data"})
-public class OasisdemoApplication {
+public class OasisApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OasisdemoApplication.class, args);
+        SpringApplication.run(OasisApplication.class, args);
     }
 
     /**
