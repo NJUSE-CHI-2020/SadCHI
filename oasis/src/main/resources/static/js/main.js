@@ -7,10 +7,10 @@ $( document ).ready( () => {
   $( '.nc-select' ).niceSelect()
 } )
 /* Scroll Ball */
-window.onscroll = (() => {
-  if ( document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ) {
-    $( '#to-top' ).css( 'display', 'flex' )
+$( window ).on( 'scroll', () => {
+  if ( $( window ).scrollTop() > 20 ) {
+    $( '.scroll-ball' ).css( 'display', 'flex' )
   } else {
-    $( '#to-top' ).hide()
+    $( '.scroll-ball' ).hide()
   }
-})
+} )

@@ -2,9 +2,9 @@ $( () => {
   $( '#option select' ).change( () => {
     const choice = $( '#option select' ).val()
     if ( choice === 'Year' || choice === 'Title' ) {
-      $( "#visual-search" ).hide()
+      $( '#visual-search' ).hide()
     } else {
-      $( "#visual-search" ).show()
+      $( '#visual-search' ).show()
     }
   } )
   $( '#normal-input' ).bind( 'keypress', ( event ) => {
