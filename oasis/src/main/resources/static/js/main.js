@@ -8,12 +8,9 @@ $( document ).ready( () => {
 } )
 /* Scroll Ball */
 window.onscroll = (() => {
-  scrollFunction()
-})
-scrollFunction = () => {
   if ( document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ) {
     $( '#to-top' ).css( 'display', 'flex' )
   } else {
     $( '#to-top' ).hide()
   }
-}
+})
