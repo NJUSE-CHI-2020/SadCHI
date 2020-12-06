@@ -16,6 +16,12 @@ public interface AffiliationDisplayService {
      */
     ResponseVO getAffiliationByName(String name);
     /**
+     * 根据机构姓名搜索机构
+     * @param name
+     * @return
+     */
+    ResponseVO getAffiliationsByName(String name);
+    /**
      * 展示所有机构名称
      * @param
      * @return

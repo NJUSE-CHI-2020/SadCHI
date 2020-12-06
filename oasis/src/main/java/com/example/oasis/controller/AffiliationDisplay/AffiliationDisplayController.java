@@ -26,6 +26,10 @@ public class AffiliationDisplayController {
     public ResponseVO showAffiliationByName(@PathVariable String name){
         return affiliationDisplayService.getAffiliationByName(name);
     }
+    @RequestMapping(value = "/Portrait/Affiliations/name/{name}", method = RequestMethod.GET)
+    public ResponseVO showAffiliationsByName(@PathVariable String name){
+        return affiliationDisplayService.getAffiliationsByName(name);
+    }
     @RequestMapping(value = "/Portrait/Affiliation/showByCountry", method = RequestMethod.GET)
     public ResponseVO showByCountry(){
         return affiliationDisplayService.showAffiliationByCountry();

@@ -4,6 +4,7 @@ import com.example.oasis.bl.AffiliationDisplay.AffiliationDisplayService;
 import com.example.oasis.data.AffiliationDisplay.AffiliationDisplayMapper;
 import com.example.oasis.data.AuthorDisplay.AuthorDisplayMapper;
 import com.example.oasis.data.DocumentDisplay.DocumentDisplayMapper;
+import com.example.oasis.po.Affiliation;
 import com.example.oasis.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,6 +74,30 @@ public class AffiliationDisplayServiceImpl implements AffiliationDisplayService 
             if(res.size()==0)
                 return ResponseVO.buildFailure(DOESNT_EXIST_MESSAGE);
             return ResponseVO.buildSuccess(res);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseVO.buildFailure("失败");
+        }
+    }
+    @Override
+    public ResponseVO getAffiliationsByName(String name){
+        try {
+            List<SimpleAffiliationVO> res=affiliationDisplayMapper.selectAffiliationByName(name);
+            List<AffiliationVO> resultList=new ArrayList<>();
+            if(res.size()==0)
+                return ResponseVO.buildFailure(DOESNT_EXIST_MESSAGE);
+            for(int i=0;i<res.size();i++){
+                int id=res.get(i).getAffiliation_id();
+                int heat=0;
+                AffiliationVO affiliationVO=new AffiliationVO();
+                affiliationVO.setId(res.get(i).getAffiliation_id());
+                affiliationVO.setName(res.get(i).getAffiliation_name());
+                affiliationVO.setAuthorCount(authorDisplayMapper.getAuthorCount(id));
+                affiliationVO.setDocuCount(documentDisplayMapper.getDocumentCount(id));
+                affiliationVO.setHeat(res.get(i).getHeat());
+                resultList.add(affiliationVO);
+            }
+            return ResponseVO.buildSuccess(resultList);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseVO.buildFailure("失败");
