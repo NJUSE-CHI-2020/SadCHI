@@ -32,7 +32,11 @@ visual_search = () => {
   const content = $( '.uk-input' ).val()
   if ( choice === 'Keywords' && content.trim() !== '' ) {
     window.location.href = '/fieldList?field=' + content
-  } else {
+  }
+  else if(choice === 'Institution' && content.trim() !== ''){
+    window.location.href = '/affiliationList?affiliation=' + content
+  }
+  else {
     warning( 'Input field cannot be blank.' )
   }
 }

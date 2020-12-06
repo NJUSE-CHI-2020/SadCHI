@@ -35,6 +35,11 @@ public class ViewController {
         return "paperList";
     }
 
+    @RequestMapping(value = "/affiliationList")
+    public String getAffiliationList() {
+        return "affiliationList";
+    }
+
     @RequestMapping(value = "/paperDetail")
     public String getPaperDetail() {
         return "paperDetail";
