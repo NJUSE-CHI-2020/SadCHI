@@ -35,4 +35,9 @@ public class ViewController {
         return "paperList";
     }
 
+    @RequestMapping(value = "/paperDetail")
+    public String getPaperDetail() {
+        return "paperDetail";
+    }
+
 }
