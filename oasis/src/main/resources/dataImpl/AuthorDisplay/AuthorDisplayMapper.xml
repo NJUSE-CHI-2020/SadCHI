@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.oasisdemo.data.AuthorDisplay.AuthorDisplayMapper">
+<mapper namespace="com.example.oasis.data.AuthorDisplay.AuthorDisplayMapper">
 
 
     <select id="selectTopTenPublication" resultMap="AuthorPortraitVO">
@@ -15,11 +15,11 @@
     </select>
 
 
-    <select id="selectByAffId" resultType="com.example.oasisdemo.vo.AuthorVO">
+    <select id="selectByAffId" resultType="com.example.oasis.vo.AuthorVO">
         select * from authorinfo as m where m.affiliation_id like concat('%',#{id},'%')
     </select>
 
-    <select id="selectByAuthorKeyword" resultType="com.example.oasisdemo.vo.AuthorVO">
+    <select id="selectByAuthorKeyword" resultType="com.example.oasis.vo.AuthorVO">
         select * from authorinfo as m where m.Keywords like concat('%',#{keyword},'%')
     </select>
     <select id="getPaperCitation" resultType="java.lang.Integer">
@@ -46,11 +46,11 @@
         where t.Title like concat('%',#{title},'%')
     </select>
 
-    <select id="selectRelationById" resultType="com.example.oasisdemo.vo.RelationVO">
+    <select id="selectRelationById" resultType="com.example.oasis.vo.RelationVO">
         SELECT * FROM authorrelations a WHERE a.a_id=#{id} or a.b_id=#{id}
     </select>
 
-    <select id="selectABRelation" resultType="com.example.oasisdemo.vo.RelationVO">
+    <select id="selectABRelation" resultType="com.example.oasis.vo.RelationVO">
         SELECT * FROM authorrelations a WHERE (a.a_id=#{Aid} and a.b_id=#{Bid}) or (a.a_id=#{Bid} and a.b_id=#{Aid})
     </select>
 
@@ -63,7 +63,7 @@
         select * from authorinfo as m order by heat Desc limit 100
     </select>
 
-    <resultMap id="AuthorVO" type="com.example.oasisdemo.vo.AuthorVO">
+    <resultMap id="AuthorVO" type="com.example.oasis.vo.AuthorVO">
         <id column="author_id" property="author_id"></id>
         <result column="author_name" property="author_name"></result>
         <result property="affiliation" column="affiliation"></result>
@@ -73,7 +73,7 @@
         <result column="heat" property="heat"></result>
     </resultMap>
 
-    <resultMap id="AuthorPortraitVO" type="com.example.oasisdemo.vo.AuthorPortraitVO">
+    <resultMap id="AuthorPortraitVO" type="com.example.oasis.vo.AuthorPortraitVO">
         <constructor>
             <idArg column="author_id" javaType="java.lang.Integer"/>
             <arg column="author_name" javaType="java.lang.String"/>
@@ -92,7 +92,7 @@
 <!--        <result property="publication_count" column="publication_count"></result>-->
     </resultMap>
 
-    <resultMap id="RelationVO" type="com.example.oasisdemo.vo.RelationVO">
+    <resultMap id="RelationVO" type="com.example.oasis.vo.RelationVO">
         <result column="a_name" property="a_name"></result>
         <result column="a_id" property="a_id"></result>
         <result column="a_affiliation" property="a_affiliation"></result>

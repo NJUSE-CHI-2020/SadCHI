@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.oasisdemo.data.DirectionDisplay.DirectionDisplayMapper">
+<mapper namespace="com.example.oasis.data.DirectionDisplay.DirectionDisplayMapper">
 
 
-    <select id="selectAllDirection" resultType="com.example.oasisdemo.vo.SimpleResearchDirectionVO">
+    <select id="selectAllDirection" resultType="com.example.oasis.vo.SimpleResearchDirectionVO">
         select * from researchdirection
     </select>
 
-    <select id="selectDirectionByName" resultType="com.example.oasisdemo.vo.SimpleResearchDirectionVO">
+    <select id="selectDirectionByName" resultType="com.example.oasis.vo.SimpleResearchDirectionVO">
         select * from researchdirection as m where m.DirectionName
                                                        like concat('%',#{name},'%')
     </select>
 
-    <select id="selectDirectionById" resultType="com.example.oasisdemo.vo.SimpleResearchDirectionVO">
+    <select id="selectDirectionById" resultType="com.example.oasis.vo.SimpleResearchDirectionVO">
         select * from researchdirection as m where m.DirectionId=#{id}
     </select>
 
 
-    <select id="selectDirectionByHeat" resultType="com.example.oasisdemo.vo.SimpleResearchDirectionVO">
+    <select id="selectDirectionByHeat" resultType="com.example.oasis.vo.SimpleResearchDirectionVO">
         select * from researchdirection as m order by Heat Desc limit 100
     </select>
 
-    <resultMap id="SimpleResearchDirectionVO" type="com.example.oasisdemo.vo.SimpleResearchDirectionVO">
+    <resultMap id="SimpleResearchDirectionVO" type="com.example.oasis.vo.SimpleResearchDirectionVO">
         <id property="id" column="DirectionId"></id>
         <result property="name" column="DirectionName"></result>
         <result property="authorCount" column="AuthorCount"></result>

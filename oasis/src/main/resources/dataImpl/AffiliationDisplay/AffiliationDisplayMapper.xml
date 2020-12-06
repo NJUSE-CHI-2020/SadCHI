@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.oasisdemo.data.AffiliationDisplay.AffiliationDisplayMapper">
+<mapper namespace="com.example.oasis.data.AffiliationDisplay.AffiliationDisplayMapper">
 
-    <select id="selectAllAffiliation" resultType="com.example.oasisdemo.vo.SimpleAffiliationVO">
+    <select id="selectAllAffiliation" resultType="com.example.oasis.vo.SimpleAffiliationVO">
         select * from affiliation
     </select>
 
-    <select id="selectAffiliationByName" resultType="com.example.oasisdemo.vo.SimpleAffiliationVO">
+    <select id="selectAffiliationByName" resultType="com.example.oasis.vo.SimpleAffiliationVO">
         select * from affiliation as m where m.affiliation_name
         like concat('%',#{name},'%')
     </select>
 
-    <select id="selectAffiliationById" resultType="com.example.oasisdemo.vo.SimpleAffiliationVO">
+    <select id="selectAffiliationById" resultType="com.example.oasis.vo.SimpleAffiliationVO">
         select * from affiliation as m where m.affiliation_id=#{id}
     </select>
 
@@ -20,17 +20,17 @@
         where m.affiliation_id = #{id}
     </update>
 
-    <select id="selectAffiliationByHeat" resultType="com.example.oasisdemo.vo.SimpleAffiliationVO">
+    <select id="selectAffiliationByHeat" resultType="com.example.oasis.vo.SimpleAffiliationVO">
         select * from affiliation as m order by heat Desc limit 100
     </select>
 
-    <select id="selectRelationByName" resultType="com.example.oasisdemo.vo.RelationVO">
+    <select id="selectRelationByName" resultType="com.example.oasis.vo.RelationVO">
         SELECT * FROM
         (SELECT * FROM authorrelations a WHERE a.a_affiliation!=a.b_affiliation) as b
         WHERE b.a_affiliation=#{name} or b.b_affiliation=#{name}
     </select>
 
-    <resultMap id="SimpleAffiliationVO" type="com.example.oasisdemo.vo.SimpleAffiliationVO">
+    <resultMap id="SimpleAffiliationVO" type="com.example.oasis.vo.SimpleAffiliationVO">
         <id column="affiliation_id" property="affiliation_id"></id>
         <result column="affiliation_name" property="affiliation_name"></result>
         <result column="country" property="country"></result>
@@ -38,7 +38,7 @@
         <result column="heat" property="heat"></result>
     </resultMap>
 
-    <resultMap id="RelationVO" type="com.example.oasisdemo.vo.RelationVO">
+    <resultMap id="RelationVO" type="com.example.oasis.vo.RelationVO">
         <result column="a_name" property="a_name"></result>
         <result column="a_id" property="a_id"></result>
         <result column="a_affiliation" property="a_affiliation"></result>
