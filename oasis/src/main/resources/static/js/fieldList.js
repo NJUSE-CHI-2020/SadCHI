@@ -38,7 +38,7 @@ $(document).ready(function () {
         )
     }
 
-    function showFieldList(list,page) {
+    function showFieldList(list) {
         //console.log(list);
         //initPagination(list.length);
         $(".field").empty();

@@ -1,0 +1,35 @@
+
+#paperContent ul li{
+    padding-bottom:20px;
+    padding-left:1em;
+    padding-top:20px;
+    padding-right:1em;
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:20px;
+    line-height: 1em;
+    text-indent : 2px;
+}
+
+#paperContent ul li div{
+    word-wrap:break-word;
+    line-height: 1.5em;
+}
+
+#paperContent ul li .affiliations span{
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+    visibility:hidden;
+}
+
+#paperContent ul li .title{
+    /*line-height: 2.5em;*/
+    font-size:20px;
+}
+
+.paperLine{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 7px solid #ccc!important;
+    border-radius:15px;
+    box-shadow: #ccc 1px 0 0 0;
+}
+

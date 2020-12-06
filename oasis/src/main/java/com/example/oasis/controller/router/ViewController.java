@@ -40,4 +40,9 @@ public class ViewController {
         return "affiliationList";
     }
 
+    @RequestMapping(value = "/paperDetail")
+    public String getPaperDetail() {
+        return "paperDetail";
+    }
+
 }
