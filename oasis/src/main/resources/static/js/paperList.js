@@ -57,21 +57,57 @@ $(document).ready(function () {
         )
     }
 
-    function showPaperList(list,page) {
-        //console.log(list);
-        //$(".field").empty();
+    function showPaperList(list) {
+        $('.paper-list').empty();
         $("#curr-page").text(currentPage);
-//        for ( let i = 0; i < list.length; i++ ) {
-//          const temp = document.createElement( 'tr' )
-//          let row = $( temp )
-//          const name = $( '<td><a href=\''+"/fieldDetail?fieldId="+list[i].id+'\' id=\'' + list[ i ].id + '\'>' + list[ i ].name + '</a></td>' )
-//          const affCount = $( '<td>' + ('0' + list[ i ].affCount).slice( -2 ) + '</td>' )
-//          const authorCount = $( '<td>' + ('0' + list[ i ].authorCount).slice( -2 ) + '</td>' )
-//          const docCount = $( '<td>' + ('0' + list[ i ].docCount).slice( -2 ) + '</td>' )
-//          const heat = $( '<td>' + list[ i ].heat + '</td>' )
-//          row.append( name ).append( authorCount ).append( affCount ).append( docCount ).append( heat )
-//          $( 'tbody.field' ).append( row )
-//        }
+        let paperDomStr = '';
+        let paper_item_index = (currentPage - 1) * 10 + 1;
+        list.forEach( (paper) => {
+            //paper.keywords = paper.keywords.replace(/;/g," ; ");
+            paperDomStr +=
+                "<li class='paperLine'>" +
+                "<div class='paper'>"+
+                    "<div class='title'>"+
+                        "<span class='paper_item_index'>"+paper_item_index+". </span>"+
+                        "<a href='/paperDetail?doi="+paper.doi+"'>"+
+                            paper.title+"</a>"+
+                    "</div>"+
+                "</div>"+
+                "<div class='paperInfo'>"+
+                    "<div class = 'affiliations'>Affiliation:  ";
+            let affiliationList = paper.affiliation.split(';');
+            let affiliationIdList = paper.affiliation_id.split(',');
+            affiliationList.forEach( (item,index)=>{
+                if(index!=0)
+                    paperDomStr +=
+                        "<a href='/affiliationDetail?affiliationId="+affiliationIdList[index]+"'>"+"<span>Affiliation:  </span>"+item+"</a></br>";
+                else
+                    paperDomStr +=
+                        "<a href='/affiliationDetail?affiliationId="+affiliationIdList[index]+"'>"+item+"</a></br>";
+            })
+            paperDomStr +=
+                    "</div>"+
+                    "<div class = 'authors'>Author:  "+paper.author.replace(/,/g," , ");
+            if(paper.keyWord === null)
+                paper.keyWord = 'None';
+            else
+                paper.keyWord = paper.keyWord.replace(/,/g," , ");
+            paperDomStr +=
+                    "</div>"+
+                "</div>"+
+                "<div class='doi'>DOI:  "+
+                    paper.doi+
+                "</div>"+
+                "<div class='keywords'>Keyword:  "+
+                    paper.keyWord+
+                "</div>"+
+                "<div class='publicationYear'>PublicationYear:  "+paper.publicationYear;
+            paperDomStr +=
+                "</div>"+
+                "</li>";
+            paper_item_index += 1;
+        });
+        $('.paper-list').append(paperDomStr);
     }
 
     $("#home").click(function () {
