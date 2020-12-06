@@ -12,7 +12,7 @@ public class DocumentDisplayController {
     @Autowired
     private DocumentDisplayService documentDisplayService;
 
-    @RequestMapping(value = "/document/title/{title}", method = RequestMethod.GET)
+    @RequestMapping(value = "/document/Title/{title}", method = RequestMethod.GET)
     public ResponseVO searchDocumentSummaryByTitle(@PathVariable String title){
         return documentDisplayService.searchDocumentSummaryByTitle(title);
     }

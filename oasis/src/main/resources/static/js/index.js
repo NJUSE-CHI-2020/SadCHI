@@ -38,10 +38,24 @@ visual_search = () => {
   }
 }
 paper_search = () => {
-  warning( 'Input field cannot be blank.' )
+  const choice = $( '#option select' ).val()
+  const content = $( '.uk-input' ).val()
+  if(content.trim()!==''){
+    window.location.href = '/paperList?' + choice + '=' + content;
+  } else {
+    warning( 'Input field cannot be blank.' )
+  }
 }
 advanced_search = () => {
-  warning( 'Input field cannot be blank.' )
+  const author = $('#authorInput').val()
+  const affiliation = $('#affiliationInput').val()
+  const year = $('#yearInput').val()
+  const keywords = $('#keywordsInput').val()
+  if(author.trim()===''&&affiliation.trim()===''&&year.trim()===''&&keywords.trim()===''){
+    warning( 'Input field cannot be blank.' )
+  } else {
+    window.location.href = '/paperList?authorname='+author+'&affiliation='+affiliation+'&year='+year+'&keywords='+keywords;
+  }
 }
 warning = ( message ) => {
   UIkit.notification( {

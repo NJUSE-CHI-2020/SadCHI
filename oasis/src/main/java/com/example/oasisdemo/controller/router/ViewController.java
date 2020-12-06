@@ -30,4 +30,9 @@ public class ViewController {
         return "fieldDetail";
     }
 
+    @RequestMapping(value = "/paperList")
+    public String getPaperList() {
+        return "paperList";
+    }
+
 }
