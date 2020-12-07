@@ -50,4 +50,6 @@ public class ViewController {
         return "affiliationDetail";
     }
 
+    @RequestMapping(value = "/authorList")
+    public String getAuthorList(){return "authorList";}
 }
