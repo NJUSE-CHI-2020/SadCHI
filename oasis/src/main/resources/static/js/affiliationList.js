@@ -4,7 +4,6 @@ $(document).ready(function () {
     totalPage = 0;
     searchAffiliation(affiliationName);
     let dataList = [];
-    var count1
 
     function searchAffiliation(affiliationName) {
         let URL = "/Portrait/Affiliations/name/"+affiliationName;

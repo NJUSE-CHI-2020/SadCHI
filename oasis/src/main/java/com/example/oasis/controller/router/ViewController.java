@@ -45,4 +45,9 @@ public class ViewController {
         return "paperDetail";
     }
 
+    @RequestMapping(value = "/affiliationDetail")
+    public String getAffiliationDetail() {
+        return "affiliationDetail";
+    }
+
 }
