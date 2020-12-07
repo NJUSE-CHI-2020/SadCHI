@@ -45,4 +45,6 @@ public class ViewController {
         return "paperDetail";
     }
 
+    @RequestMapping(value = "/authorList")
+    public String getAuthorList(){return "authorList";}
 }

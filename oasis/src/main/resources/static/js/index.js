@@ -36,6 +36,9 @@ visual_search = () => {
   else if(choice === 'Institution' && content.trim() !== ''){
     window.location.href = '/affiliationList?affiliation=' + content
   }
+  else if(choice === 'Author' && content.trim() !== ''){
+    window.location.href = '/authorList?author='+content
+  }
   else {
     warning( 'Input field cannot be blank.' )
   }
