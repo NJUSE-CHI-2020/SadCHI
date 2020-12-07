@@ -23,7 +23,7 @@ $(document).ready(function () {
                     $("#cp-count").text(dataList.length);
                     $("#total-page").text(totalPage);
                     showFieldList(dataList.slice((currentPage-1)*10,currentPage*10));
-                    sessionStorage.setItem('fieldItem',fieldName);
+                    //sessionStorage.setItem('fieldItem',fieldName);
                 }
                 else{
                     $("#tableContent").hide();
