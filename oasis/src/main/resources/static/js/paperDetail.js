@@ -13,7 +13,8 @@ $(document).ready(function () {
                 data = res.content;
                 if(data){
                     dataList = data;
-                    showPaperDetail(dataList);
+                    //console.log(dataList);
+                    showPaperDetail(dataList[0]);
                 }
                 else{
                     alert("Sorry, some errors might happen!");
@@ -25,8 +26,34 @@ $(document).ready(function () {
         )
     }
 
-    function showPaperDetail(data) {
-        console.log(data);
+    function showPaperDetail(paper) {
+        $('.info').empty();
+        let paperTitle = '';
+        paperTitle+="<a href="+paper.pdflink+" target='_blank'>"+paper.title+"</a>";
+        $('.title').append(paperTitle);
+        $('#abstract_content').text(paper.abstract);
+        let paperDomStr = '';
+        paperDomStr +=
+            "<li>"+"<div class='info_left'>DOI :  "+"</div>"+"<div class='info_right'>"+paper.doi+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Author :  "+"</div>"+"<div class='info_right'>";
+        paperDomStr += paper.author.replace(/;/g," ,");
+        paperDomStr +=
+            "</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Affiliation :  "+"</div>"+"<div class='info_right'>";
+        paperDomStr += paper.affiliation.replace(/;/g," ;\n");
+        paper.keyWord = (paper.keyWord === null) ? 'None' : paper.keyWord.replace(/;/g," ; ");
+        paper.ieeeterm = (paper.ieeeterm === null) ? 'None' : paper.ieeeterm.replace(/;/g," ; ");
+        paperDomStr +=
+            "</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Publication title :  "+"</div>"+"<div class='info_right'>"+paper.publicationTitle+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Keyword :  "+"</div>"+"<div class='info_right'>"+paper.keyWord+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>IEEETerm :  "+"</div>"+"<div class='info_right'>"+paper.ieeeterm;
+        paperDomStr +=
+            "</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Publication year :  "+"</div>"+"<div class='info_right'>"+paper.publicationYear+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Page number :  "+"</div>"+"<div class='info_right'>"+paper.startPage+" - "+paper.endPage+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Reference count :  "+"</div>"+"<div class='info_right'>"+paper.referenceCount+"</div>"+"</li>";
+        $('.info').append(paperDomStr);
     }
 
 });

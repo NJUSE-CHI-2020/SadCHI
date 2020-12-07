@@ -1,0 +1,58 @@
+
+.paper{
+    padding: 15px 0;
+    position: relative;
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    margin: 0 0 20px;
+}
+
+.paper .title {
+     font-size: 24px;
+     font-weight: normal;
+     color: #427dc9;
+     position: relative;
+     margin: 0,0,10px,0 ;
+ }
+
+.abstract_title {
+    font-size: 18px;
+    color: #417dc9;
+    margin: 10px 0 ;
+}
+
+#abstract_content{
+    word-wrap: break-word;
+    white-space: normal;
+    word-break:break-all;
+    line-height: 24px;
+    padding: 5px 0 10px;
+}
+
+.info {
+    padding: 0 0;
+    clear: both;
+}
+
+.info li {
+    line-height: 35px;
+    overflow: hidden;
+}
+
+.info_left {
+    word-wrap: break-word;
+    white-space: normal;
+    word-break:break-all;
+    text-align: left;
+    width: 25%;
+    float: left;
+    color: #898989;
+    font-weight: bold;
+}
+
+.info_right {
+    white-space: pre-wrap;
+    padding: 0 0 0 10px;
+    margin-left: 25%;
+    color: #898989;
+}

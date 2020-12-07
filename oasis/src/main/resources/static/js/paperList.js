@@ -23,7 +23,6 @@ $(document).ready(function () {
             let searchType = window.location.href.split('?')[1].split('=')[0];
             let searchVal = window.location.href.split('?')[1].split('=')[1];
             URL = "/document/"+searchType+"/"+searchVal;
-            console.log(URL);
         } else {
             let params = window.location.href.split('?')[1];
             URL = "/document/complex?"+params;
