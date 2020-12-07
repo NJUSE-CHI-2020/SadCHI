@@ -52,4 +52,7 @@ public class ViewController {
 
     @RequestMapping(value = "/authorList")
     public String getAuthorList(){return "authorList";}
+
+    @RequestMapping(value = "authorDetail")
+    public String getAuthorDetail(){return "authorDetail";}
 }
