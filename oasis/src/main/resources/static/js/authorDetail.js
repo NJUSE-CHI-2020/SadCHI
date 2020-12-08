@@ -8,18 +8,17 @@ $(document).ready(
         getRequest(
             URL,
             function (res){
-                console.log(res.content)
                 showDetail(res.content[0])
             }
         )
 
         function showDetail(data){
-            console.log(data);
             $('#author_name').text(data.author_name)
             //涛涛说以后不允许我写注释了，我好伤心
             $('#heat').text(data.heat)
             //我不要他了
             $('#affiliation_name').text(data.affiliation)
+            $('#publication_count').text(data.publication_count)
             drawAutherChart(data.keywords)
             drawAutherYearCharts(data.publicationYearCount)
             dataList = data.paperTitles
@@ -184,7 +183,6 @@ $(document).ready(
         });
 
         $("#last").click(function () {
-            //console.log(totalPage);
             currentPage = totalPage;
 
             showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
