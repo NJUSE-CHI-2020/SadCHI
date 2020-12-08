@@ -1,19 +1,16 @@
 $(document).ready(function () {
 
-//    author = window.location.href.split('?')[1].split('&')[0].split('=')[1];
-//    affiliation = window.location.href.split('?')[1].split('&')[1].split('=')[1];
-//    year = window.location.href.split('?')[1].split('&')[2].split('=')[1];
-//    keywords = window.location.href.split('?')[1].split('&')[3].split('=')[1];
 
-    if(window.location.href.indexOf('&')===-1){
-        mode = 'single'
-    } else {
-        mode = 'multiple'
-    }
+    mode = sessionStorage.getItem('mode');
+//    if(window.location.href.indexOf('&')===-1){
+//        mode = 'single'
+//    } else {
+//        mode = 'multiple'
+//    }
     currentPage = 0;
     totalPage = 0;
-    searchPaper();
     let dataList = [];
+    searchPaper();
 
 
     function searchPaper() {
@@ -33,8 +30,6 @@ $(document).ready(function () {
                 data = res.content;
                 if(data){
                     dataList = data;
-                    console.log(dataList);
-                    $("#errorContent").hide();
                     $("#paperContent").show();
                     $(".c-pages").show();
                     totalPage = data.length%10===0 ? data.length/10 : Math.floor(data.length/10)+1;
@@ -44,10 +39,7 @@ $(document).ready(function () {
                     showPaperList(dataList.slice((currentPage-1)*10,currentPage*10));
                 }
                 else{
-                    $("#paperContent").hide();
                     $("#errorContent").show();
-                    $(".c-pages").hide();
-                    //alert("Sorry, we found nothing relevant!");
                 }
             },
             function () {
@@ -77,12 +69,12 @@ $(document).ready(function () {
             let affiliationList = paper.affiliation.split(';');
             let affiliationIdList = paper.affiliation_id.split(',');
             affiliationList.forEach( (item,index)=>{
+                if(item === 'NA')
+                    item = 'unknown';
                 if(index!=0)
-                    paperDomStr +=
-                        "<a href='/affiliationDetail?affiliationId="+affiliationIdList[index]+"'>"+"<span>Affiliation:  </span>"+item+"</a></br>";
+                    paperDomStr += "<span>Affiliation:  </span>"+item+"</br>";
                 else
-                    paperDomStr +=
-                        "<a href='/affiliationDetail?affiliationId="+affiliationIdList[index]+"'>"+item+"</a></br>";
+                    paperDomStr += item+"</br>";
             })
             paperDomStr +=
                     "</div>"+

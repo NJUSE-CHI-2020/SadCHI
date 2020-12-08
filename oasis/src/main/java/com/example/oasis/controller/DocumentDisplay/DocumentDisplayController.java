@@ -18,7 +18,7 @@ public class DocumentDisplayController {
     public ResponseVO searchDocumentSummaryByAuthorName(@PathVariable String AuthorName){
         return documentDisplayService.searchDocumentSummaryByAuthorName(AuthorName);
     }
-    @RequestMapping(value = "/document/PublicationYear/{PublicationYear}", method = RequestMethod.GET)
+    @RequestMapping(value = "/document/Year/{PublicationYear}", method = RequestMethod.GET)
     public ResponseVO searchDocumentSummaryByPublicationYear(@PathVariable String PublicationYear){
         return documentDisplayService.searchDocumentSummaryByPublicationYear(PublicationYear);
     }

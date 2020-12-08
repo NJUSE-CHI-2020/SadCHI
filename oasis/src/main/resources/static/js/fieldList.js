@@ -15,7 +15,6 @@ $(document).ready(function () {
                 data = res.content;
                 if(data){
                     dataList = data;
-                    $("#errorContent").hide();
                     $("#tableContent").show();
                     $(".c-pages").show();
                     totalPage = data.length%10===0 ? data.length/10 : Math.floor(data.length/10)+1;
@@ -26,10 +25,7 @@ $(document).ready(function () {
                     //sessionStorage.setItem('fieldItem',fieldName);
                 }
                 else{
-                    $("#tableContent").hide();
                     $("#errorContent").show();
-                    $(".c-pages").hide();
-                    //alert("Sorry, we found nothing relevant!");
                 }
             },
             function () {

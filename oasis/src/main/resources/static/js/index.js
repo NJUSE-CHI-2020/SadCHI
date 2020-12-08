@@ -44,6 +44,7 @@ paper_search = () => {
   const choice = $( '#option select' ).val()
   const content = $( '.uk-input' ).val()
   if ( content.trim() !== '' ) {
+    sessionStorage.setItem( 'mode' , 'single' )
     window.location.href = '/paperList?' + choice + '=' + content
   } else {
     warning( 'Input field cannot be blank.' )
@@ -57,6 +58,7 @@ advanced_search = () => {
   if ( author.trim() === '' && affiliation.trim() === '' && year.trim() === '' && keywords.trim() === '' ) {
     warning( 'Input field cannot be blank.' )
   } else {
+    sessionStorage.setItem( 'mode' , 'multiple' )
     window.location.href = '/paperList?authorname=' + author + '&affiliation=' + affiliation + '&year=' + year + '&keywords=' + keywords
   }
 }

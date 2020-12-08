@@ -33,3 +33,15 @@
     box-shadow: #ccc 1px 0 0 0;
 }
 
+.c-pages{
+    display:none;
+}
+
+#tableContent{
+    display:none;
+}
+
+#errorContent{
+    display:none;
+}
+
