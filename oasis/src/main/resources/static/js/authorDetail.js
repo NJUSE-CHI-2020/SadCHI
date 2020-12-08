@@ -8,6 +8,7 @@ $( document ).ready(
     getRequest(
       URL,
       function( res ) {
+        console.log(res.content[0])
         showDetail( res.content[ 0 ] )
       }
     )
@@ -25,6 +26,7 @@ $( document ).ready(
       $( '#heat' ).text( data.heat )
       //我不要他了
       $( '#affiliation_name' ).text( data.affiliation )
+      $( '#affiliation_name' ).attr( 'href', '/affiliationDetail?affiliationId=' + data.affiliation_id )
       $( '#publication_count' ).text( data.publication_count )
       drawAutherChart( data.keywords )
       drawAutherYearCharts( data.publicationYearCount )

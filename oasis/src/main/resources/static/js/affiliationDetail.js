@@ -22,7 +22,11 @@ $(document).ready(function () {
                 $("#author_count").text(data.authorCount);
                 $("#document_count").text(data.docuCount);
                 $("#reference_count").text(data.refCount);
-                $("#country").text(data.country);
+                if (data.country != null && data.country.trim() !== "") {
+                    $("#country").text(data.country);
+                } else {
+                    $("#country").text("unknown");
+                }
                 $("#heat").text(data.heat);
                 affCharts(data);
                 showAuthorList(data.authorOfAffiliation.slice((currentPage-1)*10,currentPage*10));
