@@ -32,6 +32,7 @@ public class AffiliationDisplayServiceImpl implements AffiliationDisplayService 
             affiliationVO.setName(simpleAffiliationVO.getAffiliation_name());
             affiliationVO.setAuthorCount(authorDisplayMapper.getAuthorCount(id));
             affiliationVO.setDocuCount(documentDisplayMapper.getDocumentCount(id));
+            affiliationVO.setCountry(simpleAffiliationVO.getCountry());
             if(documentDisplayMapper.getRefCount(id)==null)
                 affiliationVO.setRefCount(0);
             else

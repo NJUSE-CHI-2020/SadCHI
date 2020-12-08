@@ -97,17 +97,17 @@
 
       <div class="ev-details">
 
-        <h3 class="ev-title">Affiliation Detail</h3>
+        <h3 id="affiliation_name" class="ev-title uk-text-truncate">Affiliation Detail</h3>
 
         <hr>
 
         <form class="none uk-grid-small uk-margin-small-top" uk-grid>
 
-          <div class="uk-width-1-1 uk-width-1-2@s uk-width-2-5@m">
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-5@m">
             <div class="uk-margin">
               <div class="uk-width-1-1 uk-inline">
-                <b >Name: </b>
-                <span class="text-info aff-name" id="affiliation_name" style="float:right"></span>
+                <b>Country: </b>
+                <span id="country" style="float:right"></span>
               </div>
             </div>
           </div>
@@ -117,19 +117,30 @@
           <div class="uk-width-1-1 uk-width-1-2@s uk-width-1-5@m">
             <div class="uk-margin">
               <div class="uk-width-1-1 uk-inline">
-                <b>Author Count: </b>
-                <span class='text-info' id="author_count" style="float:right"></span>
+                <b>Heat: </b>
+                <span id="heat" style="float:right"></span>
               </div>
             </div>
           </div>
 
-          <div class="uk-width-1-1 uk-width-1-2@s uk-width-1-5@m"></div>
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-5@m"></div>
 
-          <div class="uk-width-1-1 uk-width-1-2@s uk-width-2-5@m">
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-5@m">
             <div class="uk-margin">
               <div class="uk-width-1-1 uk-inline">
-                <b>Heat: </b>
-                <span class='text-info' id="heat" style="float:right"></span>
+                <b>Reference Count: </b>
+                <span id="reference_count" style="float:right"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-2-5@m"></div>
+
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-5@m">
+            <div class="uk-margin">
+              <div class="uk-width-1-1 uk-inline">
+                <b>Author Count: </b>
+                <span id="author_count" style="float:right"></span>
               </div>
             </div>
           </div>
@@ -156,7 +167,6 @@
             <a class="uk-accordion-title" href="#">Click to look!</a>
             <div class="uk-accordion-content" id="reference-container">
               <!--              <img src="/img/android.jpg">-->
-              <!--              <p>XXXXXX</p>-->
             </div>
           </li>
         </ul>

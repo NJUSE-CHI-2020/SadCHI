@@ -27,6 +27,10 @@ public class AffiliationVO {
      */
     private int refCount;
     /**
+     * 该机构所属国家
+     */
+    private String country;
+    /**
      * 该机构发文数,长度为8的list，从2012-2019对应8个值
      */
     private List<Integer> docuCountByYear;
@@ -89,6 +93,14 @@ public class AffiliationVO {
 
     public void setRefCount(int refCount) {
         this.refCount = refCount;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public List<Integer> getDocuCountByYear() {

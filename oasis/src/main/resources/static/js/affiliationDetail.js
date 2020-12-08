@@ -21,6 +21,8 @@ $(document).ready(function () {
                 $("#affiliation_name").text(data.name)
                 $("#author_count").text(data.authorCount);
                 $("#document_count").text(data.docuCount);
+                $("#reference_count").text(data.refCount);
+                $("#country").text(data.country);
                 $("#heat").text(data.heat);
                 affCharts(data);
                 showAuthorList(data.authorOfAffiliation.slice((currentPage-1)*10,currentPage*10));
