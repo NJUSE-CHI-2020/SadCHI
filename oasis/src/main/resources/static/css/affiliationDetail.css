@@ -21,6 +21,9 @@
 }
 
 .reference-wrong-item {
-
     text-align: center!important;
+}
+
+#charts1>div>canvas:hover{
+    cursor: default;
 }
