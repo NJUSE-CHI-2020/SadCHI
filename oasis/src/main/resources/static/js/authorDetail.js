@@ -18,7 +18,113 @@ $( document ).ready(
         drawNewRelationChart(res,authorId)
       }
     )
-    
+
+    getRequest(
+        '/Portrait/Author/Partners/'+authorId,
+        function (res){
+            showRelation(res.data)
+        }
+    )
+
+
+      function showRelation(data){
+        //涛涛写的代码好看
+          function drawNewRelationChart(data){//(data,author_id) {
+              var nameNodes = new Array();
+              var nodes = new Array();
+              var links = new Array();
+              var index = 0;
+
+              for (var i in data.content) {
+                  var obj = data.content[index];
+                  if (!exists(nameNodes,obj.a_name)) {
+                      nameNodes.push({name:obj.a_name,weight:obj.relation,id:obj.a_id,coworkpapers:obj.coworkpapers})
+                  }
+                  if (!exists(nameNodes,obj.b_name)) {
+                      nameNodes.push({name:obj.b_name,weight:obj.relation,id:obj.b_id,coworkpapers:obj.coworkpapers})
+                  }
+                  var tmpLink = {source: obj.a_name, target: obj.b_name ,weight:obj.relation};
+                  links.push(tmpLink);
+                  index++;
+              }
+              index = 0;
+              for (var i in nameNodes) {
+                  var sb = 30;
+                  var wg = nameNodes[i].weight;
+                  if(index === 0){
+                      sb = 90;
+                  }
+
+                  else if(wg < 25){
+                      sb = 15 + wg*3
+                  }
+                  else{
+                      sb = 90;
+                  }
+                  var tmpObj = {name: nameNodes[index].name,value:wg ,symbolSize:sb,id:nameNodes[index].id,coworkpapers:nameNodes[index].coworkpapers};
+                  nodes.push(tmpObj);
+                  index++;
+              }
+
+              var option = {
+                  title: {
+                      text: "合作关系图谱"
+                  },
+
+                  backgroundColor: '#fff',
+
+                  tooltip: {
+                      show: true
+                  },
+
+                  series: [{
+                      type: 'graph',
+                      name: "相关学者",
+                      layout: 'force',
+                      roam:true,
+                      //symbol: 'pin',
+                      ribbonType: false,
+
+
+                      itemStyle: {
+                          normal: {
+                              color: function () {
+                                  return 'rgb(' +
+                                      Math.round(Math.random() * 255) +
+                                      ', ' + Math.round(Math.random() * 255) +
+                                      ', ' + Math.round(Math.random() * 255) + ')'
+                              }
+
+                          }
+                      },
+                      label: {
+                          normal: {
+                              show: true,
+                              position: 'top',//设置label显示的位置
+                              formatter: '{b}',//设置label读取的值为value
+                              textStyle: {
+                                  fontSize: '12rem'
+                              },
+                          }
+                      },
+                      draggable: true,
+                      force: {
+                          edgeLength: 30,
+                          repulsion: 50,
+                          gravity:0.01
+                      },
+
+                      nodes: nodes,//同data,关系图的节点数据列表。
+                      links: links,
+                  }]
+              };
+
+              var mychart = echarts.init(document.getElementById('charts3'));
+              mychart.setOption(option);
+          }
+      }
+
+
     function showDetail ( data ) {
       $( '#author_name' ).text( data.author_name )
       //涛涛说以后不允许我写注释了，我好伤心
@@ -195,8 +301,6 @@ $( document ).ready(
         index++;
       }
     
-      // console.log(nodes);
-      // console.log(links);
       var option = {
         title: {
           text: "合作关系图谱"
@@ -234,73 +338,35 @@ $( document ).ready(
               position: 'top',//设置label显示的位置
               formatter: '{b}',//设置label读取的值为value
               textStyle: {
-                fontSize: '12rem'
+                fontSize: '6rem'
               },
             }
           },
           draggable: true,
           force: {
-            edgeLength: 30,
-            repulsion: 50,
-            gravity:0.01
+            edgeLength: 15,//30
+            repulsion: 35,//50
+            gravity:0.02
           },
         
           nodes: nodes,//同data,关系图的节点数据列表。
           links: links,
         }]
       };
-    
-      var mychart = echarts.init(document.getElementById('charts6'));
-      mychart.on('click',function(param){
-        var partner = param.data;
-        console.log(author_id+"!!!"+partner.id);
-        if(author_id==partner.id){
-          alert("The two guys are the same person, choose another one");
-        }
-        else{
-          $('#charts3~*').remove();
-          getRequest(
-            "/Portrait/Author/showABRelation?authorAId="+author_id+"&authorBId="+partner.id,
-            function (res) {
-              correlation = res.content[0];
-              console.log(correlation);
-              var modalStr="<button id=\"relation-modal-btn\" style=\"display: none;\" type=\"button\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" data-target=\"#myModal\">Relation</button><div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\"><div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\">" +
-                "<div class=\"modal-header\">" +
-                "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
-                "<h4 class=\"modal-title\" id=\"myModalLabel\">Relation</h4>" +
-                "</div><div class=\"modal-body\"></div></div></div></div>";
-              $('body').append(modalStr);
-            
-              var predictStr = "";
-              if(correlation == null){
-                predictStr = "They haven't cooperated yet.   Maybe they will work together in the future.";
-              }
-              else{
-                if(correlation.a_affiliation == correlation.b_affiliation){
-                  predictStr = "They are all in "+correlation.a_affiliation+".   They probably work together.";
-                }
-                else{
-                  predictStr = "They belong to two distinct affiliations, but they have cooperated before.   They are likely to work again."
-                }
-              }
-              $('div.modal-body').append("<p class='text-warning'>"+predictStr+"</p>");
-              $('div.modal-body').append("<p class='text-primary'>Paper(s) they coworked:  </p>")
-              var paperlist = correlation.coworkpapers.split(";");
-              var listStr = "<ul class=\"list-group\">";
-              paperlist.forEach(function (paper,index) {
-                listStr += "<li class=\"list-group-item\">"+paper+"</li>"
-              })
-              listStr += "</ul>"
-              $('div.modal-body').append(listStr);
-            
-              document.getElementById("relation-modal-btn").click();
-            }
-          )
-        }
-      });
+      var mychart = echarts.init(document.getElementById('charts3'));
       mychart.setOption(option);
     }
-    
+
+      function exists(array,val) {
+          for (var i = 0; i < array.length; i++) {
+              if (array[i].name == val) {
+                  return true;
+              }
+          }
+          return false;
+      }
+
+
     $( "#home" ).click( function() {
       currentPage = 1
       showPapers( dataList.slice( (currentPage - 1) * 6, currentPage * 6 ) )
