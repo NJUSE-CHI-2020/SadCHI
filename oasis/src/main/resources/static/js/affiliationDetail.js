@@ -77,9 +77,9 @@ $(document).ready(function () {
         var clouddata = data.keyWord.slice(1, -2).split(";");
         var wordData = new Array();
         if (clouddata.length<2) {
-            $("#cloud").text("关键词不足，词云图无法制作");
-            $("#cloud").css('margin-top','35%');
-            $("#charts1").hide();
+            $("#charts1").text("关键词不足，词云图无法制作");
+            $("#charts1").css('padding-top','25%');
+            $("#charts1").css('padding-bottom','25%');
             return;
         }
         clouddata.forEach(function (value) {
