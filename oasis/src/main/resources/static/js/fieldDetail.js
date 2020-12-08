@@ -12,7 +12,7 @@ $(document).ready(function () {
     }
 
     function drawDirectionAuthorChart(data) {
-        $("#FieldList").attr('href',"/fieldList?field="+sessionStorage.getItem('fieldItem'));
+        //$("#FieldList").attr('href',"/fieldList?field="+sessionStorage.getItem('fieldItem'));
         const authorData = data.authorOfDirection;
         const nodes = new Array();
         for(let i=0;i < authorData.length;i++){

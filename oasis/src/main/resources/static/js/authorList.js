@@ -45,7 +45,7 @@ $(document).ready(function (){
             const temp = document.createElement( 'tr' )
             let row = $( temp )
             const name = $('<td><a href=\''+"/authorDetail?authorId="+list[i].author_id+'\' id=\''+list[i].author_id+'\'>'+list[i].author_name+'</a></td>')
-            const affiliation = $('<td><a href="/affiliationDetail?affiliationId="'+list[i].affiliation_id+'>'+list[i].affiliation+'</a></td>')
+            const affiliation = $('<td><a href=\'/affiliationDetail?affiliationId='+list[i].affiliation_id+'\'>'+list[i].affiliation+'</a></td>')
             const publicationCount = $('<td>'+list[i].publication_count +'</td>')
             const heat = $('<td>'+list[i].heat +'</td>')
             row.append(name).append(affiliation).append(publicationCount).append(heat)

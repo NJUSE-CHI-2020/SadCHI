@@ -36,22 +36,17 @@ $(document).ready(function () {
     }
 
     function addModal(objList) {
-        var modalStr = "<div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">"+
-            "<div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\"><div class=\"modal-header\">"+
-            "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>"+
-            "<h4 class=\"modal-title\" id=\"myModalLabel\">Most Reference Count</h4></div></div></div></div>";
-        $('#reference').append(modalStr);
-        var modal = document.createElement('div'); modal.className="modal-body";
-        var ul = document.createElement('ul'); ul.className="list-group";
+        var modal = document.createElement('div'); modal.className="reference-body";
+        var ul = document.createElement('ul'); ul.className="reference-group";
         if(!objList){
-            var li = document.createElement('li'); li.className="list-group-item";
+            var li = document.createElement('li'); li.className="reference-group-item";
             li.innerText = "No Most Referenced Paper!";
         }
         else {
             for (var k = 0; k < objList.length; k++) {
                 var li = document.createElement('li');
-                li.className = "list-group-item";
-                var link = document.createElement('a');
+                li.className = "reference-group-item";
+                var link = document.createElement('a');link.className="reference_link";
                 $.ajax({
                     url:"/document/DOI?doi="+objList[k].doi,
                     async:false,
@@ -69,8 +64,7 @@ $(document).ready(function () {
             }
         }
         modal.appendChild(ul).appendChild(li);
-        $('.modal-content').append(modal);
-        $('#myModal').modal({show:false});
+        $('#reference-container').append(modal);
     }
 
     function affCharts(data) {
