@@ -41,7 +41,7 @@ $(document).ready(function () {
         var modal = document.createElement('div'); modal.className="reference-body";
         var ul = document.createElement('ul'); ul.className="reference-group";
         if(!objList){
-            var li = document.createElement('li'); li.className="reference-group-item";
+            var li = document.createElement('li'); li.className="reference-wrong-item";
             li.innerText = "No Most Referenced Paper!";
         }
         else {
