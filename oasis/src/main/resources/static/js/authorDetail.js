@@ -1,217 +1,347 @@
-$(document).ready(
-    function (){
-        authorId = window.location.href.split('?')[1].split('=')[1];
-        currentPage = 0;
-        totalPage = 0;
-        dataList = []
-        let URL = "/Portrait/Author/id/"+authorId
-        getRequest(
-            URL,
-            function (res){
-                showDetail(res.content[0])
-            }
-        )
-
-        function showDetail(data){
-            $('#author_name').text(data.author_name)
-            //涛涛说以后不允许我写注释了，我好伤心
-            $('#heat').text(data.heat)
-            //我不要他了
-            $('#affiliation_name').text(data.affiliation)
-            $('#publication_count').text(data.publication_count)
-            drawAutherChart(data.keywords)
-            drawAutherYearCharts(data.publicationYearCount)
-            dataList = data.paperTitles
-            totalPage = data.paperTitles.length%6===0 ? data.paperTitles.length/6 : Math.floor(data.paperTitles.length/6)+1;
-            currentPage =1;
-            $("#cp-count").text(dataList.length);
-            $("#total-page").text(totalPage);
-            showPapers(data.paperTitles.slice((currentPage-1)*10,currentPage*10))
-        }
-
-        function drawAutherChart(data) {
-            var mychart = echarts.init(document.getElementById('charts1'));
-            var keyWords = data;
-            var wordData = new Array();
-            for (var i in keyWords) {
-                var tmpObj = {name: i, value: keyWords[i]};
-                wordData.push(tmpObj);
-            }
-
-            var option = {
-                backgroundColor: '#fff',
-
-                tooltip: {
-                    show: false
-                },
-
-                series: [{
-                    type: 'wordCloud',
-                    gridSize: 1,
-                    sizeRange: [12, 55],
-                    rotationRange: [-45, 0, 45, 90],
-                    textStyle: {
-                        normal: {
-                            color: function () {
-                                return 'rgb(' +
-                                    Math.round(Math.random() * 255) +
-                                    ', ' + Math.round(Math.random() * 255) +
-                                    ', ' + Math.round(Math.random() * 255) + ')'
-                            }
-                        }
-                    },
-                    left: 'center',
-                    top: 'center',
-                    // width: '96%',
-                    // height: '100%',
-                    right: null,
-                    bottom: null,
-                    width: 300,
-                    height: 200,
-                    draggable: true,
-                    // top: 20,
-                    data: wordData
-                }]
-            };
-            mychart.setOption(option);
-        }
-
-        function showPapers(titles){
-            $('.papers').empty()
-            $("#curr-page").text(currentPage)
-            for(let i=0;i<titles.length;i++){
-                paperObj = getPaperObj(titles[i])
-                var item = document.createElement("div"); item.className="item";
-                var h3 = document.createElement("h3");
-                var link = document.createElement("a"); link.href=paperObj.pdflink; link.innerText=paperObj.title;
-                h3.appendChild(link);
-                var para1 = document.createElement("p");
-                var span = document.createElement("span"); span.id="year"; span.innerText=paperObj.publicationYear;
-                para1.appendChild(span);
-                var para2 = document.createElement("p"); para2.className="text-info";para2.innerText=paperObj.authors.replace(/[?]/g,"");
-                item.appendChild(h3);item.appendChild(para1);item.appendChild(para2);
-                $('.papers').append(item);
-            }
-
-        }
-
-        function getPaperObj(preTitle){
-            var tempLink = ""
-            let title = preTitle.replace(/\s+/g,"%20")
-            doi = getDOI(title)
-            $.ajax(
-                "/document/DOI?doi="+doi,
-                {
-                    async: false,
-                    success: function (res){
-                        tempLink = res.content[0]
-                    }
-
-                }
-            )
-            return tempLink
-        }
-
-        function getDOI(title){
-            var tempDOI = ""
-            $.ajax(
-                "/document/Title/"+title,
-                {
-                    async:false,
-                    success:function (res){
-                        tempDOI = res.content[0].doi
-                    }
-                }
-            )
-            return tempDOI
-        }
-
-        function drawAutherYearCharts(data) {
-            var yearDataTmp = data;
-            var yearData = new Array();
-            for (var i in yearDataTmp) {
-                var tmpObj = {name: i, value: yearDataTmp[i]};
-                yearData.push(tmpObj);
-            }
-            var option = {
-                title: {
-                    text: ""
-                },
-
-                series: [
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        radius: '55%',
-                        data: yearData,
-                        itemStyle: {
-                            normal: {
-                                label: {
-                                    show: true,
-                                    formatter: '{b} ({d}%)'
-                                },
-                                labelLine: {show: true}
-                            }
-                        }
-                    }
-                ]
-            };
-
-            var mychart = echarts.init(document.getElementById('charts2'));
-            mychart.setOption(option);
-        }
-
-        $("#home").click(function () {
-            currentPage = 1;
-            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
-        });
-
-        $("#prev").click(function () {
-            let next = currentPage;
-            if (next <= 1)
-                return;
-            currentPage -= 1;
-            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
-        });
-
-        $("#next").click(function () {
-            var last = currentPage;
-            if (last == totalPage)
-                return;
-            currentPage += 1;
-            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
-        });
-
-        $("#last").click(function () {
-            currentPage = totalPage;
-
-            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
-        });
-
-        $("#goTo").click(function () {
-            let target = $("#goToPage").val();
-            if (target == undefined)
-                target = currentPage;
-            target = Math.max(1, Math.min(totalPage, target));
-            currentPage = target;
-            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
-            $("#goToPage").val("");
-        });
-
-
-        $('#goToPage').bind('keypress',function(event){
-            if(event.keyCode == "13")
-            {
-                let target = $("#goToPage").val();
-                if (target == undefined)
-                    target = currentPage;
-                target = Math.max(1, Math.min(totalPage, target));
-                currentPage = target;
-                showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
-                $("#goToPage").val("");
-            }
-        });
-
+$( document ).ready(
+  function() {
+    authorId = window.location.href.split( '?' )[ 1 ].split( '=' )[ 1 ]
+    currentPage = 0
+    totalPage = 0
+    dataList = []
+    let URL = "/Portrait/Author/id/" + authorId
+    getRequest(
+      URL,
+      function( res ) {
+        showDetail( res.content[ 0 ] )
+      }
+    )
+  
+    getRequest(
+      '/Portrait/Author/showNewRelationById/'+authorId,
+      function (res) {
+        drawNewRelationChart(res,authorId)
+      }
+    )
+    
+    function showDetail ( data ) {
+      $( '#author_name' ).text( data.author_name )
+      //涛涛说以后不允许我写注释了，我好伤心
+      $( '#heat' ).text( data.heat )
+      //我不要他了
+      $( '#affiliation_name' ).text( data.affiliation )
+      $( '#publication_count' ).text( data.publication_count )
+      drawAutherChart( data.keywords )
+      drawAutherYearCharts( data.publicationYearCount )
+      dataList = data.paperTitles
+      totalPage = data.paperTitles.length % 6 === 0 ? data.paperTitles.length / 6 : Math.floor( data.paperTitles.length / 6 ) + 1
+      currentPage = 1
+      $( "#cp-count" ).text( dataList.length )
+      $( "#total-page" ).text( totalPage )
+      showPapers( data.paperTitles.slice( (currentPage - 1) * 10, currentPage * 10 ) )
     }
-
+    
+    function drawAutherChart ( data ) {
+      var mychart = echarts.init( document.getElementById( 'charts1' ) )
+      var keyWords = data
+      var wordData = new Array()
+      for ( var i in keyWords ) {
+        var tmpObj = { name:i, value:keyWords[ i ] }
+        wordData.push( tmpObj )
+      }
+      var option = {
+        backgroundColor:'#fff',
+        tooltip:{
+          show:false
+        },
+        series:[{
+          type:'wordCloud',
+          gridSize:1,
+          sizeRange:[12, 55],
+          rotationRange:[-45, 0, 45, 90],
+          textStyle:{
+            normal:{
+              color:function() {
+                return 'rgb(' +
+                  Math.round( Math.random() * 255 ) +
+                  ', ' + Math.round( Math.random() * 255 ) +
+                  ', ' + Math.round( Math.random() * 255 ) + ')'
+              }
+            }
+          },
+          left:'center',
+          top:'center',
+          // width: '96%',
+          // height: '100%',
+          right:null,
+          bottom:null,
+          width:300,
+          height:200,
+          draggable:true,
+          // top: 20,
+          data:wordData
+        }]
+      }
+      mychart.setOption( option )
+    }
+    
+    function showPapers ( titles ) {
+      $( '.papers' ).empty()
+      $( "#curr-page" ).text( currentPage )
+      for ( let i = 0; i < titles.length; i++ ) {
+        const paperObj = getPaperObj(titles[i])
+        const temp = document.createElement( 'tr' )
+        let row = $( temp )
+        const affiliation = $( '<td><a href=' + paperObj.pdflink + '</a>' + paperObj.title + '</td>' )
+        const year = $( '<td>' + paperObj.publicationYear + '</td>' )
+        const authors = $( '<td>' + paperObj.authors.replace( /[?]/g, "" ) + '</td>' )
+        row.append( affiliation ).append( year ).append( authors )
+        $( '.papers' ).append( row )
+      }
+    }
+    
+    function getPaperObj ( preTitle ) {
+      var tempLink = ""
+      let title = preTitle.replace( /\s+/g, "%20" )
+      doi = getDOI( title )
+      $.ajax(
+        "/document/DOI?doi=" + doi,
+        {
+          async:false,
+          success:function( res ) {
+            tempLink = res.content[ 0 ]
+          }
+        }
+      )
+      return tempLink
+    }
+    
+    function getDOI ( title ) {
+      var tempDOI = ""
+      $.ajax(
+        "/document/Title/" + title,
+        {
+          async:false,
+          success:function( res ) {
+            tempDOI = res.content[ 0 ].doi
+          }
+        }
+      )
+      return tempDOI
+    }
+    
+    function drawAutherYearCharts ( data ) {
+      var yearDataTmp = data
+      var yearData = new Array()
+      for ( var i in yearDataTmp ) {
+        var tmpObj = { name:i, value:yearDataTmp[ i ] }
+        yearData.push( tmpObj )
+      }
+      var option = {
+        title:{
+          text:""
+        },
+        series:[
+          {
+            name:'访问来源',
+            type:'pie',
+            radius:'55%',
+            data:yearData,
+            itemStyle:{
+              normal:{
+                label:{
+                  show:true,
+                  formatter:'{b} ({d}%)'
+                },
+                labelLine:{ show:true }
+              }
+            }
+          }
+        ]
+      }
+      var mychart = echarts.init( document.getElementById( 'charts2' ) )
+      mychart.setOption( option )
+    }
+  
+    function drawNewRelationChart(data,author_id) {
+      var nameNodes = new Array();
+      var nodes = new Array();
+      var links = new Array();
+      var index = 0;
+    
+      for (var i in data.content) {
+        var obj = data.content[index];
+        if (!exists(nameNodes,obj.a_name)) {
+          nameNodes.push({name:obj.a_name,weight:obj.relation,id:obj.a_id,coworkpapers:obj.coworkpapers})
+        }
+        if (!exists(nameNodes,obj.b_name)) {
+          nameNodes.push({name:obj.b_name,weight:obj.relation,id:obj.b_id,coworkpapers:obj.coworkpapers})
+        }
+        var tmpLink = {source: obj.a_name, target: obj.b_name ,weight:obj.relation};
+        links.push(tmpLink);
+        index++;
+      }
+      index = 0;
+      for (var i in nameNodes) {
+        var sb = 30;
+        var wg = nameNodes[i].weight;
+        if(index === 0){
+          sb = 90;
+        }
+      
+        else if(wg < 25){
+          sb = 15 + wg*3
+        }
+        else{
+          sb = 90;
+        }
+        var tmpObj = {name: nameNodes[index].name,value:wg ,symbolSize:sb,id:nameNodes[index].id,coworkpapers:nameNodes[index].coworkpapers};
+        nodes.push(tmpObj);
+        index++;
+      }
+    
+      // console.log(nodes);
+      // console.log(links);
+      var option = {
+        title: {
+          text: "合作关系图谱"
+        },
+      
+        backgroundColor: '#fff',
+      
+        tooltip: {
+          show: true
+        },
+      
+        series: [{
+          type: 'graph',
+          name: "相关学者",
+          layout: 'force',
+          roam:true,
+          //symbol: 'pin',
+          ribbonType: false,
+        
+        
+          itemStyle: {
+            normal: {
+              color: function () {
+                return 'rgb(' +
+                  Math.round(Math.random() * 255) +
+                  ', ' + Math.round(Math.random() * 255) +
+                  ', ' + Math.round(Math.random() * 255) + ')'
+              }
+            
+            }
+          },
+          label: {
+            normal: {
+              show: true,
+              position: 'top',//设置label显示的位置
+              formatter: '{b}',//设置label读取的值为value
+              textStyle: {
+                fontSize: '12rem'
+              },
+            }
+          },
+          draggable: true,
+          force: {
+            edgeLength: 30,
+            repulsion: 50,
+            gravity:0.01
+          },
+        
+          nodes: nodes,//同data,关系图的节点数据列表。
+          links: links,
+        }]
+      };
+    
+      var mychart = echarts.init(document.getElementById('charts6'));
+      mychart.on('click',function(param){
+        var partner = param.data;
+        console.log(author_id+"!!!"+partner.id);
+        if(author_id==partner.id){
+          alert("The two guys are the same person, choose another one");
+        }
+        else{
+          $('#charts3~*').remove();
+          getRequest(
+            "/Portrait/Author/showABRelation?authorAId="+author_id+"&authorBId="+partner.id,
+            function (res) {
+              correlation = res.content[0];
+              console.log(correlation);
+              var modalStr="<button id=\"relation-modal-btn\" style=\"display: none;\" type=\"button\" class=\"btn btn-primary btn-lg\" data-toggle=\"modal\" data-target=\"#myModal\">Relation</button><div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\"><div class=\"modal-dialog\" role=\"document\"><div class=\"modal-content\">" +
+                "<div class=\"modal-header\">" +
+                "<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>" +
+                "<h4 class=\"modal-title\" id=\"myModalLabel\">Relation</h4>" +
+                "</div><div class=\"modal-body\"></div></div></div></div>";
+              $('body').append(modalStr);
+            
+              var predictStr = "";
+              if(correlation == null){
+                predictStr = "They haven't cooperated yet.   Maybe they will work together in the future.";
+              }
+              else{
+                if(correlation.a_affiliation == correlation.b_affiliation){
+                  predictStr = "They are all in "+correlation.a_affiliation+".   They probably work together.";
+                }
+                else{
+                  predictStr = "They belong to two distinct affiliations, but they have cooperated before.   They are likely to work again."
+                }
+              }
+              $('div.modal-body').append("<p class='text-warning'>"+predictStr+"</p>");
+              $('div.modal-body').append("<p class='text-primary'>Paper(s) they coworked:  </p>")
+              var paperlist = correlation.coworkpapers.split(";");
+              var listStr = "<ul class=\"list-group\">";
+              paperlist.forEach(function (paper,index) {
+                listStr += "<li class=\"list-group-item\">"+paper+"</li>"
+              })
+              listStr += "</ul>"
+              $('div.modal-body').append(listStr);
+            
+              document.getElementById("relation-modal-btn").click();
+            }
+          )
+        }
+      });
+      mychart.setOption(option);
+    }
+    
+    $( "#home" ).click( function() {
+      currentPage = 1
+      showPapers( dataList.slice( (currentPage - 1) * 6, currentPage * 6 ) )
+    } )
+    $( "#prev" ).click( function() {
+      let next = currentPage
+      if ( next <= 1 )
+        return
+      currentPage -= 1
+      showPapers( dataList.slice( (currentPage - 1) * 6, currentPage * 6 ) )
+    } )
+    $( "#next" ).click( function() {
+      var last = currentPage
+      if ( last == totalPage )
+        return
+      currentPage += 1
+      showPapers( dataList.slice( (currentPage - 1) * 6, currentPage * 6 ) )
+    } )
+    $( "#last" ).click( function() {
+      currentPage = totalPage
+      showPapers( dataList.slice( (currentPage - 1) * 6, currentPage * 6 ) )
+    } )
+    $( "#goTo" ).click( function() {
+      let target = $( "#goToPage" ).val()
+      if ( target == undefined )
+        target = currentPage
+      target = Math.max( 1, Math.min( totalPage, target ) )
+      currentPage = target
+      showPapers( dataList.slice( (currentPage - 1) * 6, currentPage * 6 ) )
+      $( "#goToPage" ).val( "" )
+    } )
+    $( '#goToPage' ).bind( 'keypress', function( event ) {
+      if ( event.keyCode == "13" ) {
+        let target = $( "#goToPage" ).val()
+        if ( target == undefined )
+          target = currentPage
+        target = Math.max( 1, Math.min( totalPage, target ) )
+        currentPage = target
+        showPapers( dataList.slice( (currentPage - 1) * 6, currentPage * 6 ) )
+        $( "#goToPage" ).val( "" )
+      }
+    } )
+  }
 )

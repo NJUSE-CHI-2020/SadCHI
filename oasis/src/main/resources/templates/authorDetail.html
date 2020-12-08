@@ -103,33 +103,33 @@
 
         <form class="none uk-grid-small uk-margin-medium-top" uk-grid>
 
-          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-5@m">
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-6@m">
             <div class="uk-margin">
               <div class="uk-width-1-1 uk-inline">
                 <b>Heat: </b>
-                <span id="heat" style="float:right"></span>
+                <span id="heat"></span>
               </div>
             </div>
           </div>
 
-          <div class="uk-width-1-1 uk-width-1-2@s uk-width-1-5@m"></div>
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-6@m"></div>
 
-          <div class="uk-width-1-1 uk-width-1-2@s uk-width-2-5@m">
-            <div class="uk-margin">
-              <div class="uk-width-1-1 uk-inline">
-                <b>Affiliation: </b>
-                <span id="affiliation_name" style="float:right"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-5@m"></div>
-
-          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-5@m">
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-6@m">
             <div class="uk-margin">
               <div class="uk-width-1-1 uk-inline">
                 <b>Publication Count: </b>
-                <span id="publication_count" style="float:right"></span>
+                <span id="publication_count"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-1-6@m"></div>
+
+          <div class="uk-width-1-1 uk-width-1-1@s uk-width-expand@m">
+            <div class="uk-margin">
+              <div class="uk-width-1-1 uk-inline">
+                <b>Affiliation: </b>
+                <span id="affiliation_name" class="uk-text-truncate"></span>
               </div>
             </div>
           </div>
@@ -170,7 +170,17 @@
           </div>
         </div>
 
-        <h5 class="uk-heading-line uk-text-bold"><span>Table</span></h5>
+        <h5 class="uk-heading-line uk-text-bold"><span>Top Articles</span></h5>
+
+        <ul class="ev-plans" uk-accordion>
+          <li class="">
+            <a class="uk-accordion-title uk-text-center" href="#">Click to Look!</a>
+            <div id="charts3" scrolling="yes" class="uk-accordion-content ev-map uk-cover-container uk-height-medium">
+            </div>
+          </li>
+        </ul>
+
+        <h5 class="uk-heading-line uk-text-bold"><span>Top Articles</span></h5>
 
         <div class="uk-column-1-1">
 
@@ -178,12 +188,13 @@
 
             <table id="tableContent" class="uk-table uk-table-middle uk-table-striped uk-table-hover">
               <thead>
-
+              <tr>
+                <th class="uk-width-large">Article Title</th>
+                <th>Year</th>
+                <th>Authors</th>
+              </tr>
               </thead>
-              <tbody class="papers">
-
-              </tbody>
-
+              <tbody class="papers"></tbody>
             </table>
             <div class="c-pages">
               <div class="cp-item">
