@@ -56,4 +56,7 @@ public class ViewController {
     @RequestMapping(value = "/authorDetail")
     public String getAuthorDetail(){return "authorDetail";}
 
+    @RequestMapping(value = "/authorRelation")
+    public String getAuthorRelation(){return "authorRelation";}
+
 }
