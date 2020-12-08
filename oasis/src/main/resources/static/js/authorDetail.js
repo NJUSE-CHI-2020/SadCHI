@@ -1,7 +1,9 @@
 $(document).ready(
     function (){
         authorId = window.location.href.split('?')[1].split('=')[1];
-
+        currentPage = 0;
+        totalPage = 0;
+        dataList = []
         let URL = "/Portrait/Author/id/"+authorId
         getRequest(
             URL,
@@ -20,7 +22,12 @@ $(document).ready(
             $('#affiliation_name').text(data.affiliation)
             drawAutherChart(data.keywords)
             drawAutherYearCharts(data.publicationYearCount)
-            showPapers(data.paperTitles)
+            dataList = data.paperTitles
+            totalPage = data.paperTitles.length%6===0 ? data.paperTitles.length/6 : Math.floor(data.paperTitles.length/6)+1;
+            currentPage =1;
+            $("#cp-count").text(dataList.length);
+            $("#total-page").text(totalPage);
+            showPapers(data.paperTitles.slice((currentPage-1)*10,currentPage*10))
         }
 
         function drawAutherChart(data) {
@@ -71,16 +78,25 @@ $(document).ready(
         }
 
         function showPapers(titles){
-
+            $('.papers').empty()
+            $("#curr-page").text(currentPage)
             for(let i=0;i<titles.length;i++){
-                link = getPaperLink(titles[i])
-
-
+                paperObj = getPaperObj(titles[i])
+                var item = document.createElement("div"); item.className="item";
+                var h3 = document.createElement("h3");
+                var link = document.createElement("a"); link.href=paperObj.pdflink; link.innerText=paperObj.title;
+                h3.appendChild(link);
+                var para1 = document.createElement("p");
+                var span = document.createElement("span"); span.id="year"; span.innerText=paperObj.publicationYear;
+                para1.appendChild(span);
+                var para2 = document.createElement("p"); para2.className="text-info";para2.innerText=paperObj.authors.replace(/[?]/g,"");
+                item.appendChild(h3);item.appendChild(para1);item.appendChild(para2);
+                $('.papers').append(item);
             }
 
         }
 
-        function getPaperLink(preTitle){
+        function getPaperObj(preTitle){
             var tempLink = ""
             let title = preTitle.replace(/\s+/g,"%20")
             doi = getDOI(title)
@@ -89,12 +105,11 @@ $(document).ready(
                 {
                     async: false,
                     success: function (res){
-                        tempLink = res.content[0].pdflink
+                        tempLink = res.content[0]
                     }
 
                 }
             )
-            console.log(tempLink)
             return tempLink
         }
 
@@ -147,6 +162,57 @@ $(document).ready(
             mychart.setOption(option);
         }
 
+        $("#home").click(function () {
+            currentPage = 1;
+            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
+        });
+
+        $("#prev").click(function () {
+            let next = currentPage;
+            if (next <= 1)
+                return;
+            currentPage -= 1;
+            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
+        });
+
+        $("#next").click(function () {
+            var last = currentPage;
+            if (last == totalPage)
+                return;
+            currentPage += 1;
+            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
+        });
+
+        $("#last").click(function () {
+            //console.log(totalPage);
+            currentPage = totalPage;
+
+            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
+        });
+
+        $("#goTo").click(function () {
+            let target = $("#goToPage").val();
+            if (target == undefined)
+                target = currentPage;
+            target = Math.max(1, Math.min(totalPage, target));
+            currentPage = target;
+            showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
+            $("#goToPage").val("");
+        });
+
+
+        $('#goToPage').bind('keypress',function(event){
+            if(event.keyCode == "13")
+            {
+                let target = $("#goToPage").val();
+                if (target == undefined)
+                    target = currentPage;
+                target = Math.max(1, Math.min(totalPage, target));
+                currentPage = target;
+                showPapers(dataList.slice((currentPage-1)*6,currentPage*6));
+                $("#goToPage").val("");
+            }
+        });
 
     }
 
