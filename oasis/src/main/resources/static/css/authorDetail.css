@@ -11,3 +11,7 @@
     height: 500px;
     width: 1200px;
 }
+
+#charts1>div>canvas:hover{
+    cursor: default;
+}

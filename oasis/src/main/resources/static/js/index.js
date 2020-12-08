@@ -11,7 +11,7 @@ $( () => {
     if ( event.keyCode === 13 ) {
       const content = $( '#normal-input' ).val()
       if ( content.trim() === '' ) {
-        warning( 'Input field cannot be blank.' )
+        warning( 'Input cannot be blank.' )
       } else {
         warning( 'Click on one of both buttons.' )
       }
@@ -37,7 +37,7 @@ visual_search = () => {
   } else if ( choice === 'Author' && content.trim() !== '' ) {
     window.location.href = '/authorList?author=' + content
   } else {
-    warning( 'Input field cannot be blank.' )
+    warning( 'Input cannot be blank.' )
   }
 }
 paper_search = () => {
@@ -47,7 +47,7 @@ paper_search = () => {
     sessionStorage.setItem( 'mode' , 'single' )
     window.location.href = '/paperList?' + choice + '=' + content
   } else {
-    warning( 'Input field cannot be blank.' )
+    warning( 'Input cannot be blank.' )
   }
 }
 advanced_search = () => {
@@ -56,7 +56,7 @@ advanced_search = () => {
   const year = $( '#yearInput' ).val()
   const keywords = $( '#keywordsInput' ).val()
   if ( author.trim() === '' && affiliation.trim() === '' && year.trim() === '' && keywords.trim() === '' ) {
-    warning( 'Input field cannot be blank.' )
+    warning( 'Input cannot be blank.' )
   } else {
     sessionStorage.setItem( 'mode' , 'multiple' )
     window.location.href = '/paperList?authorname=' + author + '&affiliation=' + affiliation + '&year=' + year + '&keywords=' + keywords
