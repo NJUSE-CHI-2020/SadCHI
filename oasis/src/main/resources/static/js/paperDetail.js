@@ -33,25 +33,25 @@ $(document).ready(function () {
         $('#abstract_content').text(paper.abstract);
         let paperDomStr = '';
         paperDomStr +=
-            "<li style='list-style-type:none'>"+"<div class='info_left'>DOI :  "+"</div>"+"<div class='info_right'>"+paper.doi+"</div>"+"</li>"
-            +"<li style='list-style-type:none'>"+"<div class='info_left'>Author :  "+"</div>"+"<div class='info_right'>";
+            "<li>"+"<div class='info_left'>DOI :  "+"</div>"+"<div class='info_right'>"+paper.doi+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Author :  "+"</div>"+"<div class='info_right'>";
         paperDomStr += paper.author.replace(/;/g," ,");
         paperDomStr +=
             "</div>"+"</li>"
-            +"<li style='list-style-type:none'>"+"<div class='info_left'>Affiliation :  "+"</div>"+"<div class='info_right'>";
+            +"<li>"+"<div class='info_left'>Affiliation :  "+"</div>"+"<div class='info_right'>";
         paperDomStr += paper.affiliation.replace(/;/g," ;\n");
         paper.keyWord = (paper.keyWord === null) ? 'None' : paper.keyWord.replace(/;/g," ; ");
         paper.ieeeterm = (paper.ieeeterm === null) ? 'None' : paper.ieeeterm.replace(/;/g," ; ");
         paperDomStr +=
             "</div>"+"</li>"
-            +"<li style='list-style-type:none'>"+"<div class='info_left'>Publication title :  "+"</div>"+"<div class='info_right'>"+paper.publicationTitle+"</div>"+"</li>"
-            +"<li style='list-style-type:none'>"+"<div class='info_left'>Keyword :  "+"</div>"+"<div class='info_right'>"+paper.keyWord+"</div>"+"</li>"
-            +"<li style='list-style-type:none'>"+"<div class='info_left'>IEEETerm :  "+"</div>"+"<div class='info_right'>"+paper.ieeeterm;
+            +"<li>"+"<div class='info_left'>Publication title :  "+"</div>"+"<div class='info_right'>"+paper.publicationTitle+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Keyword :  "+"</div>"+"<div class='info_right'>"+paper.keyWord+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>IEEETerm :  "+"</div>"+"<div class='info_right'>"+paper.ieeeterm;
         paperDomStr +=
             "</div>"+"</li>"
-            +"<li style='list-style-type:none'>"+"<div class='info_left'>Publication year :  "+"</div>"+"<div class='info_right'>"+paper.publicationYear+"</div>"+"</li>"
-            +"<li style='list-style-type:none'>"+"<div class='info_left'>Page number :  "+"</div>"+"<div class='info_right'>"+paper.startPage+" - "+paper.endPage+"</div>"+"</li>"
-            +"<li style='list-style-type:none'>"+"<div class='info_left'>Reference count :  "+"</div>"+"<div class='info_right'>"+paper.referenceCount+"</div>"+"</li>";
+            +"<li>"+"<div class='info_left'>Publication year :  "+"</div>"+"<div class='info_right'>"+paper.publicationYear+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Page number :  "+"</div>"+"<div class='info_right'>"+paper.startPage+" - "+paper.endPage+"</div>"+"</li>"
+            +"<li>"+"<div class='info_left'>Reference count :  "+"</div>"+"<div class='info_right'>"+paper.referenceCount+"</div>"+"</li>";
         $('.info').append(paperDomStr);
     }
 
