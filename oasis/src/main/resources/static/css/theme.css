@@ -1594,6 +1594,12 @@ small {
     max-width: 1200px;
 }
 
+.ev-cards-container {
+  margin: auto;
+  padding: 0 10px;
+  max-width: 1200px;
+}
+
 .ev-page-container {
     margin: auto;
     padding: 40px 30px;
