@@ -8,7 +8,6 @@ $( document ).ready(
     getRequest(
       URL,
       function( res ) {
-        console.log(res.content[0])
         showDetail( res.content[ 0 ] )
       }
     )
@@ -89,10 +88,10 @@ $( document ).ready(
         const paperObj = getPaperObj(titles[i])
         const temp = document.createElement( 'tr' )
         let row = $( temp )
-        const affiliation = $( '<td><a href=' + paperObj.pdflink + '</a>' + paperObj.title + '</td>' )
+        const paper = $( '<td><a href="/paperDetail?doi=' + paperObj.doi + '"</a>' + paperObj.title + '</td>' )
         const year = $( '<td>' + paperObj.publicationYear + '</td>' )
         const authors = $( '<td>' + paperObj.authors.replace( /[?]/g, "" ) + '</td>' )
-        row.append( affiliation ).append( year ).append( authors )
+        row.append( paper ).append( year ).append( authors )
         $( '.papers' ).append( row )
       }
     }
