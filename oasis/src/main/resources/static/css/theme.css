@@ -98,6 +98,10 @@ small {
     background: var(--secondary-color) !important;
 }
 
+.uk-section-sidemenu {
+    background: var(--secondary-alpha-Dot85) !important;
+}
+
 .uk-section-gray {
     background: #f9f9f9 !important;
 }
